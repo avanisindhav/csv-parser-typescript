@@ -13,3 +13,8 @@ export type csvRow = [
   matchResult: MatchResults,
   coachName: string
 ];
+
+export interface DataReader {
+  read(): void;
+  data: string[][];
+}

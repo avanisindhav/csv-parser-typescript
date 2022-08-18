@@ -1,14 +1,13 @@
-import { CsvFileReader } from "./CsvFileReader";
 import { dateStringToDate } from "./utils";
-import { MatchResults, csvRow } from "./models";
+import { MatchResults, csvRow, DataReader } from "./models";
 
-export class MatchReader extends CsvFileReader<csvRow> {
-  constructor(fileName: string) {
-    super(fileName);
-  }
+export class MatchReader {
+  matches: csvRow[] = [];
+  constructor(public reader: DataReader) {}
 
-  parseRow(row: string[]): csvRow {
-    {
+  load(): void {
+    this.reader.read();
+    this.matches = this.reader.data.map((row: string[]): csvRow => {
       return [
         dateStringToDate(row[0]),
         row[1],
@@ -18,6 +17,6 @@ export class MatchReader extends CsvFileReader<csvRow> {
         row[5] as MatchResults, // H,A,D
         row[6],
       ];
-    }
+    });
   }
 }

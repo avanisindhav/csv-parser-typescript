@@ -1,10 +1,11 @@
 import { MatchReader } from "./MatchReader";
+import { CsvFileReader } from "./CsvFileReader";
 import { MatchResults } from "./models";
 
-const reader = new MatchReader("football.csv");
-
-reader.read();
-const matches = reader.data;
+const reader = new CsvFileReader("football.csv");
+const matchReader = new MatchReader(reader);
+matchReader.load();
+const matches = matchReader.matches;
 // console.log(matches[0]);
 
 // Man United no of times team won
